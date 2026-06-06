@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualizador PROGRESO — Lejis</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+  :root {
+    --bg:#0f0f0f;--surface:#1a1a1a;--border:#2a2a2a;
+    --accent:#00d4aa;--accent-dim:#00d4aa22;
+    --text:#e8e8e8;--text-dim:#888;
+    --error:#ff4d4d;--success:#00d4aa;--warning:#ffaa00;
+    --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
+  .header{width:100%;max-width:700px;margin-bottom:32px}
+  .header-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .dot{width:10px;height:10px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+  .title{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
+  .subtitle{font-size:13px;color:var(--text-dim);font-family:var(--mono);letter-spacing:.03em}
+  .card{width:100%;max-width:700px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:16px}
+  .card-label{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+  .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .project-btn{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px;cursor:pointer;text-align:left;transition:all .15s;color:var(--text)}
+  .project-btn:hover{border-color:var(--accent);background:var(--accent-dim)}
+  .project-btn.active{border-color:var(--accent);background:var(--accent-dim);box-shadow:0 0 0 1px var(--accent)}
+  .project-btn .proj-name{font-size:13px;font-weight:600;margin-bottom:4px}
+  .project-btn .proj-id{font-family:var(--mono);font-size:10px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .project-btn.add-new{border-style:dashed;display:flex;align-items:center;gap:8px;color:var(--text-dim);font-size:13px}
+  .project-btn.add-new:hover{color:var(--accent);border-color:var(--accent)}
+  .selected-info{display:none;margin-top:14px;padding:12px 14px;background:var(--accent-dim);border:1px solid var(--accent);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--accent)}
+  .selected-info.visible{display:block}
+  textarea{width:100%;min-height:280px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:16px;color:var(--text);font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;outline:none;transition:border-color .15s}
+  textarea:focus{border-color:var(--accent)}
+  textarea::placeholder{color:var(--text-dim)}
+  .char-count{margin-top:8px;font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:right}
+  .btn-update{width:100%;padding:16px;background:var(--accent);color:#000;border:none;border-radius:6px;font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .15s;margin-top:16px}
+  .btn-update:hover:not(:disabled){background:#00ffcc;transform:translateY(-1px);box-shadow:0 4px 20px #00d4aa44}
+  .btn-update:disabled{background:var(--border);color:var(--text-dim);cursor:not-allowed}
+  .status{display:none;margin-top:14px;padding:14px 16px;border-radius:6px;font-family:var(--mono);font-size:12px;line-height:1.5;white-space:pre-line}
+  .status.visible{display:block}
+  .status.loading{background:#1a1a00;border:1px solid var(--warning);color:var(--warning)}
+  .status.success{background:#001a15;border:1px solid var(--success);color:var(--success)}
+  .status.error{background:#1a0000;border:1px solid var(--error);color:var(--error)}
+  .modal-overlay{display:none;position:fixed;inset:0;background:#000000cc;z-index:100;align-items:center;justify-content:center}
+  .modal-overlay.visible{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:28px;width:90%;max-width:460px}
+  .modal-title{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .field input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-family:var(--mono);font-size:12px;outline:none;transition:border-color .15s}
+  .field input:focus{border-color:var(--accent)}
+  .modal-actions{display:flex;gap:10px;margin-top:20px}
+  .btn-cancel{flex:1;padding:10px;background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--text-dim);font-family:var(--mono);font-size:12px;cursor:pointer;transition:all .15s}
+  .btn-cancel:hover{border-color:var(--text-dim);color:var(--text)}
+  .btn-save{flex:2;padding:10px;background:var(--accent);border:none;border-radius:5px;color:#000;font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+  .btn-save:hover{background:#00ffcc}
+  .footer{margin-top:24px;font-family:var(--mono);font-size:11px;color:#333;text-align:center}
+  /* iframe oculto para envío sin recarga */
+  #hiddenFrame{display:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="dot"></div>
+    <div class="title">Actualizador PROGRESO</div>
+  </div>
+  <div class="subtitle">Inversiones Lejis · Sistema de gestión de proyectos Claude</div>
+</div>
+
+<div class="card">
+  <div class="card-label">01 — Selecciona el proyecto</div>
+  <div class="project-grid" id="projectGrid">
+    <button class="project-btn" onclick="selectProject(this,'RIT — Inversiones Lejis','1iO-7pP6gTugWgzzq6KA7OFqvcpO9M1en')">
+      <div class="proj-name">RIT — Inversiones Lejis</div>
+      <div class="proj-id">1iO-7pP6gTugWgzzq6KA7OFqvcpO9M1en</div>
+    </button>
+    <button class="project-btn add-new" onclick="openModal()">
+      <span style="font-size:18px;line-height:1">+</span>
+      <span>Agregar proyecto</span>
+    </button>
+  </div>
+  <div class="selected-info" id="selectedInfo"></div>
+</div>
+
+<div class="card">
+  <div class="card-label">02 — Pega el PROGRESO actualizado</div>
+  <textarea id="contenido" placeholder="Pega aquí el contenido del PROGRESO generado por Claude al final de la sesión..."></textarea>
+  <div class="char-count" id="charCount">0 caracteres</div>
+</div>
+
+<div style="width:100%;max-width:700px;">
+  <button class="btn-update" id="btnUpdate" onclick="actualizarProgreso()" disabled>Actualizar PROGRESO</button>
+  <div class="status" id="status"></div>
+</div>
+
+<div class="footer">Actualizador PROGRESO v1.1 · Inversiones Lejis S.A.S</div>
+
+<!-- iframe oculto para recibir respuesta del script sin redirigir la página -->
+<iframe id="hiddenFrame" name="hiddenFrame"></iframe>
+
+<!-- Formulario oculto — evita bloqueo CORS desde archivo local -->
+<form id="hiddenForm" method="POST" target="hiddenFrame" style="display:none">
+  <input type="hidden" name="token" id="fToken">
+  <input type="hidden" name="docId" id="fDocId">
+  <input type="hidden" name="contenido" id="fContenido">
+</form>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-title">Agregar nuevo proyecto</div>
+    <div class="field">
+      <label>Nombre del proyecto</label>
+      <input type="text" id="newName" placeholder="Ej: Productividad Logística">
+    </div>
+    <div class="field">
+      <label>ID del PROGRESO en Drive</label>
+      <input type="text" id="newId" placeholder="Ej: 1aBcDeFgHiJkLmNoPqRsTuV...">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-save" onclick="saveProject()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuzxDXVh58wRe1oBccuRJHSnavBG--1dD3eHMifBOpI3zNpfqcPOfN7FZewMu_JndTHQ/exec';
+const TOKEN = 'lejis-2026';
+let selectedDocId = null;
+let selectedName = null;
+let extraProjects = JSON.parse(localStorage.getItem('lejis_projects') || '[]');
+
+function selectProject(btn, name, docId) {
+  document.querySelectorAll('.project-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  selectedDocId = docId;
+  selectedName = name;
+  const info = document.getElementById('selectedInfo');
+  info.textContent = '→ ' + name + '  |  ID: ' + docId;
+  info.classList.add('visible');
+  checkReady();
+}
+
+document.getElementById('contenido').addEventListener('input', function() {
+  document.getElementById('charCount').textContent = this.value.length.toLocaleString() + ' caracteres';
+  checkReady();
+});
+
+function checkReady() {
+  const ok = selectedDocId && document.getElementById('contenido').value.trim().length > 0;
+  document.getElementById('btnUpdate').disabled = !ok;
+}
+
+function actualizarProgreso() {
+  const contenido = document.getElementById('contenido').value.trim();
+  const btn = document.getElementById('btnUpdate');
+  const status = document.getElementById('status');
+
+  btn.disabled = true;
+  btn.textContent = 'Actualizando...';
+  status.className = 'status loading visible';
+  status.textContent = '⟳ Enviando a Drive...';
+
+  // Llenar formulario oculto
+  document.getElementById('fToken').value = TOKEN;
+  document.getElementById('fDocId').value = selectedDocId;
+  document.getElementById('fContenido').value = contenido;
+
+  // Apuntar el form a la URL del script y enviar
+  const form = document.getElementById('hiddenForm');
+  form.action = SCRIPT_URL;
+  form.submit();
+
+  // El iframe recibe la respuesta silenciosamente
+  // Mostrar éxito tras 3 segundos (tiempo suficiente para que el script procese)
+  setTimeout(() => {
+    status.className = 'status success visible';
+    status.textContent = '✓ PROGRESO actualizado correctamente\n→ Proyecto: ' + selectedName + '\n→ ' + new Date().toLocaleString('es-CO') + '\n\nVerifica en Drive que el contenido cambió.';
+    btn.textContent = '✓ Actualizado';
+    setTimeout(() => { btn.textContent = 'Actualizar PROGRESO'; btn.disabled = false; }, 4000);
+  }, 3000);
+}
+
+function openModal() { document.getElementById('modalOverlay').classList.add('visible'); }
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('visible');
+  document.getElementById('newName').value = '';
+  document.getElementById('newId').value = '';
+}
+
+function saveProject() {
+  const name = document.getElementById('newName').value.trim();
+  const id = document.getElementById('newId').value.trim();
+  if (!name || !id) return;
+  extraProjects.push({ name, id });
+  localStorage.setItem('lejis_projects', JSON.stringify(extraProjects));
+  addProjectButton(name, id);
+  closeModal();
+}
+
+function addProjectButton(name, id) {
+  const grid = document.getElementById('projectGrid');
+  const addBtn = grid.lastElementChild;
+  const btn = document.createElement('button');
+  btn.className = 'project-btn';
+  btn.onclick = function() { selectProject(this, name, id); };
+  btn.innerHTML = '<div class="proj-name">' + name + '</div><div class="proj-id">' + id + '</div>';
+  grid.insertBefore(btn, addBtn);
+}
+
+extraProjects.forEach(p => addProjectButton(p.name, p.id));
+</script>
+</body>
+</html>
