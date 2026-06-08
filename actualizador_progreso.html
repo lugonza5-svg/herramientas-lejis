@@ -3,218 +3,755 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Actualizador PROGRESO — Lejis</title>
+<title>Actualizador PROGRESO — RIT Lejis</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
   :root {
-    --bg:#0f0f0f;--surface:#1a1a1a;--border:#2a2a2a;
-    --accent:#00d4aa;--accent-dim:#00d4aa22;
-    --text:#e8e8e8;--text-dim:#888;
-    --error:#ff4d4d;--success:#00d4aa;--warning:#ffaa00;
-    --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans',sans-serif;
+    --bg:        #0f1117;
+    --surface:   #181c27;
+    --border:    #2a2f3f;
+    --accent:    #3b82f6;
+    --accent2:   #10b981;
+    --warn:      #f59e0b;
+    --danger:    #ef4444;
+    --text:      #e2e8f0;
+    --muted:     #64748b;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:40px 20px}
-  .header{width:100%;max-width:700px;margin-bottom:32px}
-  .header-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-  .dot{width:10px;height:10px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-  .title{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--accent);letter-spacing:.05em;text-transform:uppercase}
-  .subtitle{font-size:13px;color:var(--text-dim);font-family:var(--mono);letter-spacing:.03em}
-  .card{width:100%;max-width:700px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:28px;margin-bottom:16px}
-  .card-label{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
-  .project-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .project-btn{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:14px 16px;cursor:pointer;text-align:left;transition:all .15s;color:var(--text)}
-  .project-btn:hover{border-color:var(--accent);background:var(--accent-dim)}
-  .project-btn.active{border-color:var(--accent);background:var(--accent-dim);box-shadow:0 0 0 1px var(--accent)}
-  .project-btn .proj-name{font-size:13px;font-weight:600;margin-bottom:4px}
-  .project-btn .proj-id{font-family:var(--mono);font-size:10px;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .project-btn.add-new{border-style:dashed;display:flex;align-items:center;gap:8px;color:var(--text-dim);font-size:13px}
-  .project-btn.add-new:hover{color:var(--accent);border-color:var(--accent)}
-  .selected-info{display:none;margin-top:14px;padding:12px 14px;background:var(--accent-dim);border:1px solid var(--accent);border-radius:6px;font-family:var(--mono);font-size:11px;color:var(--accent)}
-  .selected-info.visible{display:block}
-  textarea{width:100%;min-height:280px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:16px;color:var(--text);font-family:var(--mono);font-size:12px;line-height:1.6;resize:vertical;outline:none;transition:border-color .15s}
-  textarea:focus{border-color:var(--accent)}
-  textarea::placeholder{color:var(--text-dim)}
-  .char-count{margin-top:8px;font-family:var(--mono);font-size:11px;color:var(--text-dim);text-align:right}
-  .btn-update{width:100%;padding:16px;background:var(--accent);color:#000;border:none;border-radius:6px;font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .15s;margin-top:16px}
-  .btn-update:hover:not(:disabled){background:#00ffcc;transform:translateY(-1px);box-shadow:0 4px 20px #00d4aa44}
-  .btn-update:disabled{background:var(--border);color:var(--text-dim);cursor:not-allowed}
-  .status{display:none;margin-top:14px;padding:14px 16px;border-radius:6px;font-family:var(--mono);font-size:12px;line-height:1.5;white-space:pre-line}
-  .status.visible{display:block}
-  .status.loading{background:#1a1a00;border:1px solid var(--warning);color:var(--warning)}
-  .status.success{background:#001a15;border:1px solid var(--success);color:var(--success)}
-  .status.error{background:#1a0000;border:1px solid var(--error);color:var(--error)}
-  .modal-overlay{display:none;position:fixed;inset:0;background:#000000cc;z-index:100;align-items:center;justify-content:center}
-  .modal-overlay.visible{display:flex}
-  .modal{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:28px;width:90%;max-width:460px}
-  .modal-title{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;margin-bottom:20px}
-  .field{margin-bottom:16px}
-  .field label{display:block;font-family:var(--mono);font-size:11px;color:var(--text-dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-  .field input{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-family:var(--mono);font-size:12px;outline:none;transition:border-color .15s}
-  .field input:focus{border-color:var(--accent)}
-  .modal-actions{display:flex;gap:10px;margin-top:20px}
-  .btn-cancel{flex:1;padding:10px;background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--text-dim);font-family:var(--mono);font-size:12px;cursor:pointer;transition:all .15s}
-  .btn-cancel:hover{border-color:var(--text-dim);color:var(--text)}
-  .btn-save{flex:2;padding:10px;background:var(--accent);border:none;border-radius:5px;color:#000;font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
-  .btn-save:hover{background:#00ffcc}
-  .footer{margin-top:24px;font-family:var(--mono);font-size:11px;color:#333;text-align:center}
-  /* iframe oculto para envío sin recarga */
-  #hiddenFrame{display:none}
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .shell {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    width: 36px; height: 36px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  header h1 {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+  }
+  header p {
+    font-size: .75rem;
+    color: var(--muted);
+    font-family: var(--mono);
+    margin-top: 2px;
+  }
+  .badge {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: .65rem;
+    background: rgba(59,130,246,.15);
+    color: var(--accent);
+    border: 1px solid rgba(59,130,246,.3);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .tab {
+    flex: 1;
+    padding: .65rem 1rem;
+    font-size: .8rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: background .15s, color .15s;
+    color: var(--muted);
+    border: none;
+    background: transparent;
+    font-family: var(--sans);
+  }
+  .tab:not(:last-child) { border-right: 1px solid var(--border); }
+  .tab.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* Panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .card-title {
+    font-size: .7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  /* Fields */
+  label {
+    display: block;
+    font-size: .75rem;
+    color: var(--muted);
+    margin-bottom: .4rem;
+    font-family: var(--mono);
+  }
+  input[type="text"], input[type="password"], textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: .8rem;
+    padding: .6rem .8rem;
+    outline: none;
+    transition: border-color .2s;
+    resize: vertical;
+  }
+  input:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+  .field { margin-bottom: 1rem; }
+  .field:last-child { margin-bottom: 0; }
+
+  textarea.tall { min-height: 220px; }
+
+  /* Botones */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .65rem 1.25rem;
+    border-radius: 7px;
+    font-size: .82rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: opacity .15s, transform .1s;
+    font-family: var(--sans);
+  }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-primary { background: var(--accent);  color: #fff; }
+  .btn-success { background: var(--accent2); color: #fff; }
+  .btn-warn    { background: var(--warn);    color: #000; }
+  .btn-row {
+    display: flex;
+    gap: .75rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+  }
+
+  /* Status */
+  .status {
+    margin-top: 1rem;
+    padding: .75rem 1rem;
+    border-radius: 7px;
+    font-family: var(--mono);
+    font-size: .75rem;
+    line-height: 1.5;
+    display: none;
+    white-space: pre-wrap;
+  }
+  .status.ok      { background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.3); color: var(--accent2); }
+  .status.error   { background: rgba(239,68,68,.1);  border: 1px solid rgba(239,68,68,.3);  color: var(--danger); }
+  .status.loading { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.3); color: var(--accent); }
+  .status.warn    { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.3); color: var(--warn); }
+  .status.show    { display: block; }
+
+  /* Preview */
+  .preview {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .75rem;
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--muted);
+    white-space: pre-wrap;
+    max-height: 180px;
+    overflow-y: auto;
+    margin-top: .75rem;
+    display: none;
+  }
+  .preview.show { display: block; }
+
+  /* Marcadores info */
+  .info-box {
+    background: rgba(59,130,246,.06);
+    border: 1px solid rgba(59,130,246,.2);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-size: .75rem;
+    line-height: 1.7;
+    color: #94a3b8;
+    margin-bottom: 1.25rem;
+    font-family: var(--mono);
+  }
+  .info-box strong { color: var(--accent); }
+
+  /* Progress bar */
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: .75rem;
+    overflow: hidden;
+    display: none;
+  }
+  .progress-bar.show { display: block; }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    width: 0%;
+    transition: width .4s ease;
+  }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    display: none;
+  }
+  .spinner.show { display: inline-block; }
+
+  /* Copy button */
+  .copy-row {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-top: .5rem;
+  }
+  .copy-btn {
+    font-size: .7rem;
+    padding: .3rem .7rem;
+    background: var(--border);
+    border: none;
+    color: var(--text);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--mono);
+    transition: background .15s;
+  }
+  .copy-btn:hover { background: #3a3f50; }
+
+  /* Template */
+  .template-block {
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: .85rem;
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: #7dd3fc;
+    white-space: pre;
+    overflow-x: auto;
+    margin-top: .75rem;
+  }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
 </head>
 <body>
+<div class="shell">
 
-<div class="header">
-  <div class="header-top">
-    <div class="dot"></div>
-    <div class="title">Actualizador PROGRESO</div>
-  </div>
-  <div class="subtitle">Inversiones Lejis · Sistema de gestión de proyectos Claude</div>
-</div>
-
-<div class="card">
-  <div class="card-label">01 — Selecciona el proyecto</div>
-  <div class="project-grid" id="projectGrid">
-    <button class="project-btn" onclick="selectProject(this,'RIT — Inversiones Lejis','1iO-7pP6gTugWgzzq6KA7OFqvcpO9M1en')">
-      <div class="proj-name">RIT — Inversiones Lejis</div>
-      <div class="proj-id">1iO-7pP6gTugWgzzq6KA7OFqvcpO9M1en</div>
-    </button>
-    <button class="project-btn add-new" onclick="openModal()">
-      <span style="font-size:18px;line-height:1">+</span>
-      <span>Agregar proyecto</span>
-    </button>
-  </div>
-  <div class="selected-info" id="selectedInfo"></div>
-</div>
-
-<div class="card">
-  <div class="card-label">02 — Pega el PROGRESO actualizado</div>
-  <textarea id="contenido" placeholder="Pega aquí el contenido del PROGRESO generado por Claude al final de la sesión..."></textarea>
-  <div class="char-count" id="charCount">0 caracteres</div>
-</div>
-
-<div style="width:100%;max-width:700px;">
-  <button class="btn-update" id="btnUpdate" onclick="actualizarProgreso()" disabled>Actualizar PROGRESO</button>
-  <div class="status" id="status"></div>
-</div>
-
-<div class="footer">Actualizador PROGRESO v1.1 · Inversiones Lejis S.A.S</div>
-
-<!-- iframe oculto para recibir respuesta del script sin redirigir la página -->
-<iframe id="hiddenFrame" name="hiddenFrame"></iframe>
-
-<!-- Formulario oculto — evita bloqueo CORS desde archivo local -->
-<form id="hiddenForm" method="POST" target="hiddenFrame" style="display:none">
-  <input type="hidden" name="token" id="fToken">
-  <input type="hidden" name="docId" id="fDocId">
-  <input type="hidden" name="contenido" id="fContenido">
-</form>
-
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <div class="modal-title">Agregar nuevo proyecto</div>
-    <div class="field">
-      <label>Nombre del proyecto</label>
-      <input type="text" id="newName" placeholder="Ej: Productividad Logística">
+  <header>
+    <div class="logo">RIT</div>
+    <div>
+      <h1>Actualizador PROGRESO</h1>
+      <p>Inversiones Lejis S.A.S — Reglamento Interno de Trabajo</p>
     </div>
-    <div class="field">
-      <label>ID del PROGRESO en Drive</label>
-      <input type="text" id="newId" placeholder="Ej: 1aBcDeFgHiJkLmNoPqRsTuV...">
-    </div>
-    <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
-      <button class="btn-save" onclick="saveProject()">Guardar</button>
+    <span class="badge">v4.0</span>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('progreso')">📄 Actualizar PROGRESO</button>
+    <button class="tab" onclick="switchTab('sesion')">💬 Registrar sesión</button>
+    <button class="tab" onclick="switchTab('config')">⚙️ Configuración</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TAB 1: ACTUALIZAR PROGRESO (original)
+  ═══════════════════════════════════════════ -->
+  <div id="tab-progreso" class="panel active">
+    <div class="card">
+      <div class="card-title">Contenido completo de PROGRESO.md</div>
+      <div class="field">
+        <label>Pega aquí el bloque "ACTUALIZACIÓN PARA PROGRESO" entregado por Claude</label>
+        <textarea id="contenido-progreso" class="tall" placeholder="Pega aquí el contenido completo del PROGRESO.md actualizado..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="actualizarProgreso()">
+          <span class="spinner" id="spin-progreso"></span>
+          Actualizar PROGRESO.md
+        </button>
+        <button class="btn" style="background:var(--border);color:var(--text)" onclick="limpiar('contenido-progreso','status-progreso')">Limpiar</button>
+      </div>
+      <div class="progress-bar" id="bar-progreso"><div class="progress-fill" id="fill-progreso"></div></div>
+      <div class="status" id="status-progreso"></div>
     </div>
   </div>
-</div>
+
+  <!-- ═══════════════════════════════════════════
+       TAB 2: REGISTRAR SESIÓN (nuevo)
+  ═══════════════════════════════════════════ -->
+  <div id="tab-sesion" class="panel">
+
+    <div class="info-box">
+      <strong>Cómo funciona:</strong><br>
+      1. Al final del chat, escribe <strong>resumen</strong> en Claude<br>
+      2. Claude genera un bloque con marcadores <strong>&lt;!-- RIT-SESION-INICIO --&gt;</strong> y <strong>&lt;!-- RIT-SESION-FIN --&gt;</strong><br>
+      3. Copia ese bloque completo (con marcadores) y pégalo abajo<br>
+      4. Haz clic en <strong>Registrar sesión</strong> — se anexa al PROGRESO.md sin borrar nada
+    </div>
+
+    <div class="card">
+      <div class="card-title">Bloque de resumen de sesión</div>
+      <div class="field">
+        <label>Pega aquí el bloque completo generado por Claude (con marcadores)</label>
+        <textarea id="contenido-sesion" class="tall" placeholder="<!-- RIT-SESION-INICIO -->
+## Sesión: 2026-06-08
+### Lo tratado
+- ...
+### Decisiones tomadas
+- ...
+### Próximo paso
+...
+### Artículos trabajados
+- ...
+<!-- RIT-SESION-FIN -->"></textarea>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-warn" onclick="validarYPrevisualizar()">
+          👁 Previsualizar
+        </button>
+        <button class="btn btn-success" id="btn-registrar" onclick="registrarSesion()" disabled>
+          <span class="spinner" id="spin-sesion"></span>
+          Registrar sesión
+        </button>
+        <button class="btn" style="background:var(--border);color:var(--text)" onclick="limpiarSesion()">Limpiar</button>
+      </div>
+
+      <div class="preview" id="preview-sesion"></div>
+      <div class="progress-bar" id="bar-sesion"><div class="progress-fill" id="fill-sesion"></div></div>
+      <div class="status" id="status-sesion"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Plantilla para Claude — copia esto al system prompt del proyecto RIT</div>
+      <div class="copy-row">
+        <span style="font-size:.75rem;color:var(--muted)">Instrucción lista para pegar en el Project Instructions de Claude</span>
+        <button class="copy-btn" onclick="copiarTemplate()">Copiar</button>
+      </div>
+      <div class="template-block" id="template-claude">COMANDO RESUMEN
+Cuando Luis escriba "resumen", genera este bloque exacto sin texto fuera de los marcadores:
+
+<!-- RIT-SESION-INICIO -->
+## Sesión: [YYYY-MM-DD]
+### Lo tratado
+[3-5 puntos concisos — máximo 2 líneas por punto]
+### Decisiones tomadas
+[lista, o "Ninguna" si no hubo]
+### Próximo paso
+[una sola línea accionable]
+### Artículos trabajados
+[lista de artículos/secciones, o "Ninguno"]
+<!-- RIT-SESION-FIN -->
+
+Reglas: máximo 200 palabras dentro del bloque. Sin texto antes ni después del bloque.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TAB 3: CONFIGURACIÓN
+  ═══════════════════════════════════════════ -->
+  <div id="tab-config" class="panel">
+    <div class="card">
+      <div class="card-title">Parámetros de conexión</div>
+      <div class="field">
+        <label>URL del Apps Script (Web App desplegada)</label>
+        <input type="text" id="cfg-url" placeholder="https://script.google.com/macros/s/.../exec">
+      </div>
+      <div class="field">
+        <label>ID del archivo PROGRESO.md en Google Drive</label>
+        <input type="text" id="cfg-docid" placeholder="1iO-7pP6gTugWgzzq6KA7OFqvcpO9M1en">
+      </div>
+      <div class="field">
+        <label>Token de seguridad</label>
+        <input type="password" id="cfg-token" placeholder="lejis-2026">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="guardarConfig()">Guardar configuración</button>
+        <button class="btn btn-warn" onclick="probarConexion()">
+          <span class="spinner" id="spin-config"></span>
+          Probar conexión
+        </button>
+      </div>
+      <div class="status" id="status-config"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Acerca de</div>
+      <div style="font-size:.75rem;color:var(--muted);line-height:1.8;font-family:var(--mono)">
+        v4.0 — Actualizador PROGRESO + Registro de sesiones<br>
+        Proyecto: Reglamento Interno de Trabajo — Inversiones Lejis S.A.S<br>
+        NIT: 900231444-2 — Bogotá, Colombia<br>
+        <br>
+        Modos disponibles:<br>
+        • <span style="color:var(--accent)">sobrescribir</span> — reemplaza PROGRESO.md completo<br>
+        • <span style="color:var(--accent2)">anexar</span> — agrega bloque de sesión al final
+      </div>
+    </div>
+  </div>
+
+</div><!-- /shell -->
 
 <script>
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzuzxDXVh58wRe1oBccuRJHSnavBG--1dD3eHMifBOpI3zNpfqcPOfN7FZewMu_JndTHQ/exec';
-const TOKEN = 'lejis-2026';
-let selectedDocId = null;
-let selectedName = null;
-let extraProjects = JSON.parse(localStorage.getItem('lejis_projects') || '[]');
+// ─────────────────────────────────────────
+// CONFIG — valores por defecto (editables en pestaña Config)
+// ─────────────────────────────────────────
+const DEFAULTS = {
+  url:   '',
+  docId: '1iO-7pP6gTugWgzzq6KA7OFqvcpO9M1en',
+  token: 'lejis-2026'
+};
 
-function selectProject(btn, name, docId) {
-  document.querySelectorAll('.project-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  selectedDocId = docId;
-  selectedName = name;
-  const info = document.getElementById('selectedInfo');
-  info.textContent = '→ ' + name + '  |  ID: ' + docId;
-  info.classList.add('visible');
-  checkReady();
+function getCfg() {
+  return {
+    url:   localStorage.getItem('rit_url')   || DEFAULTS.url,
+    docId: localStorage.getItem('rit_docid') || DEFAULTS.docId,
+    token: localStorage.getItem('rit_token') || DEFAULTS.token
+  };
 }
 
-document.getElementById('contenido').addEventListener('input', function() {
-  document.getElementById('charCount').textContent = this.value.length.toLocaleString() + ' caracteres';
-  checkReady();
+// ─────────────────────────────────────────
+// TABS
+// ─────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+
+  // Pre-cargar config en fields
+  if (name === 'config') cargarConfigEnCampos();
+}
+
+// ─────────────────────────────────────────
+// CONFIG
+// ─────────────────────────────────────────
+function cargarConfigEnCampos() {
+  const c = getCfg();
+  document.getElementById('cfg-url').value   = c.url;
+  document.getElementById('cfg-docid').value = c.docId;
+  document.getElementById('cfg-token').value = c.token;
+}
+
+function guardarConfig() {
+  const url   = document.getElementById('cfg-url').value.trim();
+  const docId = document.getElementById('cfg-docid').value.trim();
+  const token = document.getElementById('cfg-token').value.trim();
+
+  if (!url)   { mostrarStatus('status-config', 'error', 'La URL del Apps Script es obligatoria.'); return; }
+  if (!docId) { mostrarStatus('status-config', 'error', 'El ID del documento es obligatorio.'); return; }
+  if (!token) { mostrarStatus('status-config', 'error', 'El token no puede estar vacío.'); return; }
+
+  localStorage.setItem('rit_url',   url);
+  localStorage.setItem('rit_docid', docId);
+  localStorage.setItem('rit_token', token);
+  mostrarStatus('status-config', 'ok', '✓ Configuración guardada en este navegador.');
+}
+
+async function probarConexion() {
+  const cfg = getCfg();
+  if (!cfg.url) { mostrarStatus('status-config', 'error', 'Primero guarda la URL del Apps Script.'); return; }
+
+  const spin = document.getElementById('spin-config');
+  spin.classList.add('show');
+  mostrarStatus('status-config', 'loading', 'Conectando con el Apps Script...');
+
+  try {
+    const r = await fetch(cfg.url);
+    const txt = await r.text();
+    spin.classList.remove('show');
+    if (r.ok) {
+      mostrarStatus('status-config', 'ok', '✓ Conexión exitosa.\n' + txt);
+    } else {
+      mostrarStatus('status-config', 'error', 'Error HTTP ' + r.status);
+    }
+  } catch(e) {
+    spin.classList.remove('show');
+    mostrarStatus('status-config', 'error', 'Error de red: ' + e.message);
+  }
+}
+
+// ─────────────────────────────────────────
+// TAB 1 — ACTUALIZAR PROGRESO (modo sobrescribir)
+// ─────────────────────────────────────────
+async function actualizarProgreso() {
+  const contenido = document.getElementById('contenido-progreso').value.trim();
+  if (!contenido) { mostrarStatus('status-progreso', 'error', 'El contenido no puede estar vacío.'); return; }
+
+  const cfg = getCfg();
+  if (!cfg.url) { mostrarStatus('status-progreso', 'error', 'Configura la URL del Apps Script en la pestaña Configuración.'); return; }
+
+  await enviar({
+    modo: 'sobrescribir',
+    contenido,
+    statusId: 'status-progreso',
+    barId: 'bar-progreso',
+    fillId: 'fill-progreso',
+    spinId: 'spin-progreso'
+  });
+}
+
+// ─────────────────────────────────────────
+// TAB 2 — REGISTRAR SESIÓN (modo anexar)
+// ─────────────────────────────────────────
+const MARCADOR_INICIO = '<!-- RIT-SESION-INICIO -->';
+const MARCADOR_FIN    = '<!-- RIT-SESION-FIN -->';
+
+function validarYPrevisualizar() {
+  const raw = document.getElementById('contenido-sesion').value;
+  const resultado = extraerBloque(raw);
+
+  if (!resultado.ok) {
+    mostrarStatus('status-sesion', 'error', resultado.error);
+    document.getElementById('btn-registrar').disabled = true;
+    ocultarPreview();
+    return;
+  }
+
+  // Mostrar preview
+  const prev = document.getElementById('preview-sesion');
+  prev.textContent = resultado.bloque;
+  prev.classList.add('show');
+
+  mostrarStatus('status-sesion', 'warn',
+    '⚠ Revisa el bloque antes de registrar.\n' +
+    'Caracteres: ' + resultado.bloque.length + ' · ' +
+    'Palabras: ~' + resultado.bloque.split(/\s+/).length
+  );
+  document.getElementById('btn-registrar').disabled = false;
+}
+
+function extraerBloque(texto) {
+  const ini = texto.indexOf(MARCADOR_INICIO);
+  const fin = texto.indexOf(MARCADOR_FIN);
+
+  if (ini === -1) return { ok: false, error: 'No se encontró el marcador de inicio:\n' + MARCADOR_INICIO };
+  if (fin === -1) return { ok: false, error: 'No se encontró el marcador de cierre:\n' + MARCADOR_FIN };
+  if (fin <= ini) return { ok: false, error: 'El marcador de cierre está antes del de inicio.' };
+
+  const bloque = texto.substring(ini, fin + MARCADOR_FIN.length).trim();
+  return { ok: true, bloque };
+}
+
+async function registrarSesion() {
+  const raw = document.getElementById('contenido-sesion').value;
+  const resultado = extraerBloque(raw);
+  if (!resultado.ok) { mostrarStatus('status-sesion', 'error', resultado.error); return; }
+
+  const cfg = getCfg();
+  if (!cfg.url) { mostrarStatus('status-sesion', 'error', 'Configura la URL del Apps Script en la pestaña Configuración.'); return; }
+
+  await enviar({
+    modo: 'anexar',
+    contenido: '\n\n---\n' + resultado.bloque,
+    statusId: 'status-sesion',
+    barId: 'bar-sesion',
+    fillId: 'fill-sesion',
+    spinId: 'spin-sesion',
+    onSuccess: () => {
+      document.getElementById('btn-registrar').disabled = true;
+      ocultarPreview();
+    }
+  });
+}
+
+function ocultarPreview() {
+  document.getElementById('preview-sesion').classList.remove('show');
+}
+
+function limpiarSesion() {
+  document.getElementById('contenido-sesion').value = '';
+  document.getElementById('btn-registrar').disabled = true;
+  ocultarPreview();
+  ocultarStatus('status-sesion');
+}
+
+// ─────────────────────────────────────────
+// CORE — envío al Apps Script
+// ─────────────────────────────────────────
+async function enviar({ modo, contenido, statusId, barId, fillId, spinId, onSuccess }) {
+  const cfg = getCfg();
+
+  // Si es "anexar", el Apps Script necesita leer primero el archivo y concatenar.
+  // Lo hacemos aquí en el cliente para no modificar el script desplegado:
+  // enviamos modo=sobrescribir pero con el contenido ya combinado.
+  let contenidoFinal = contenido;
+
+  if (modo === 'anexar') {
+    mostrarStatus(statusId, 'loading', 'Leyendo PROGRESO.md actual...');
+    animarBarra(barId, fillId, 20);
+
+    try {
+      // Leer contenido actual vía GET con parámetro especial
+      const actual = await leerArchivoActual(cfg);
+      contenidoFinal = actual + contenido; // contenido ya incluye el \n\n---\n
+      animarBarra(barId, fillId, 50);
+    } catch(e) {
+      mostrarStatus(statusId, 'error', 'No se pudo leer el archivo actual: ' + e.message + '\n\nVerifica la URL y el token en Configuración.');
+      return;
+    }
+  }
+
+  const spin = document.getElementById(spinId);
+  spin.classList.add('show');
+  mostrarStatus(statusId, 'loading', modo === 'anexar' ? 'Anexando sesión a PROGRESO.md...' : 'Actualizando PROGRESO.md...');
+  animarBarra(barId, fillId, 70);
+
+  try {
+    const r = await fetch(cfg.url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: cfg.token,
+        docId: cfg.docId,
+        contenido: contenidoFinal
+      })
+    });
+
+    const data = await r.json();
+    spin.classList.remove('show');
+    animarBarra(barId, fillId, 100);
+
+    if (data.status === 200) {
+      mostrarStatus(statusId, 'ok',
+        '✓ ' + (modo === 'anexar' ? 'Sesión registrada' : 'PROGRESO actualizado') + '\n' +
+        data.mensaje + '\n' +
+        'Timestamp: ' + data.timestamp
+      );
+      if (onSuccess) onSuccess();
+    } else {
+      mostrarStatus(statusId, 'error', 'Error ' + data.status + ': ' + data.mensaje);
+    }
+  } catch(e) {
+    spin.classList.remove('show');
+    mostrarStatus(statusId, 'error', 'Error de red: ' + e.message);
+  }
+}
+
+// Leer archivo actual — hace GET al Apps Script con acción=leer
+async function leerArchivoActual(cfg) {
+  const url = cfg.url + '?accion=leer&docId=' + encodeURIComponent(cfg.docId) + '&token=' + encodeURIComponent(cfg.token);
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const data = await r.json();
+  if (data.status !== 200) throw new Error(data.mensaje);
+  return data.contenido || '';
+}
+
+// ─────────────────────────────────────────
+// HELPERS UI
+// ─────────────────────────────────────────
+function mostrarStatus(id, tipo, msg) {
+  const el = document.getElementById(id);
+  el.className = 'status ' + tipo + ' show';
+  el.textContent = msg;
+}
+
+function ocultarStatus(id) {
+  const el = document.getElementById(id);
+  el.className = 'status';
+  el.textContent = '';
+}
+
+function limpiar(fieldId, statusId) {
+  document.getElementById(fieldId).value = '';
+  ocultarStatus(statusId);
+}
+
+function animarBarra(barId, fillId, pct) {
+  const bar  = document.getElementById(barId);
+  const fill = document.getElementById(fillId);
+  bar.classList.add('show');
+  setTimeout(() => { fill.style.width = pct + '%'; }, 50);
+  if (pct >= 100) {
+    setTimeout(() => { bar.classList.remove('show'); fill.style.width = '0%'; }, 1500);
+  }
+}
+
+function copiarTemplate() {
+  const txt = document.getElementById('template-claude').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Copiado';
+    setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+  });
+}
+
+// Init: cargar config si la pestaña activa es config
+window.addEventListener('DOMContentLoaded', () => {
+  // Pre-cargar config si hay valores guardados
+  const cfg = getCfg();
+  if (cfg.url) {
+    // silencioso, solo verifica que hay config
+  }
 });
-
-function checkReady() {
-  const ok = selectedDocId && document.getElementById('contenido').value.trim().length > 0;
-  document.getElementById('btnUpdate').disabled = !ok;
-}
-
-function actualizarProgreso() {
-  const contenido = document.getElementById('contenido').value.trim();
-  const btn = document.getElementById('btnUpdate');
-  const status = document.getElementById('status');
-
-  btn.disabled = true;
-  btn.textContent = 'Actualizando...';
-  status.className = 'status loading visible';
-  status.textContent = '⟳ Enviando a Drive...';
-
-  // Llenar formulario oculto
-  document.getElementById('fToken').value = TOKEN;
-  document.getElementById('fDocId').value = selectedDocId;
-  document.getElementById('fContenido').value = contenido;
-
-  // Apuntar el form a la URL del script y enviar
-  const form = document.getElementById('hiddenForm');
-  form.action = SCRIPT_URL;
-  form.submit();
-
-  // El iframe recibe la respuesta silenciosamente
-  // Mostrar éxito tras 3 segundos (tiempo suficiente para que el script procese)
-  setTimeout(() => {
-    status.className = 'status success visible';
-    status.textContent = '✓ PROGRESO actualizado correctamente\n→ Proyecto: ' + selectedName + '\n→ ' + new Date().toLocaleString('es-CO') + '\n\nVerifica en Drive que el contenido cambió.';
-    btn.textContent = '✓ Actualizado';
-    setTimeout(() => { btn.textContent = 'Actualizar PROGRESO'; btn.disabled = false; }, 4000);
-  }, 3000);
-}
-
-function openModal() { document.getElementById('modalOverlay').classList.add('visible'); }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('visible');
-  document.getElementById('newName').value = '';
-  document.getElementById('newId').value = '';
-}
-
-function saveProject() {
-  const name = document.getElementById('newName').value.trim();
-  const id = document.getElementById('newId').value.trim();
-  if (!name || !id) return;
-  extraProjects.push({ name, id });
-  localStorage.setItem('lejis_projects', JSON.stringify(extraProjects));
-  addProjectButton(name, id);
-  closeModal();
-}
-
-function addProjectButton(name, id) {
-  const grid = document.getElementById('projectGrid');
-  const addBtn = grid.lastElementChild;
-  const btn = document.createElement('button');
-  btn.className = 'project-btn';
-  btn.onclick = function() { selectProject(this, name, id); };
-  btn.innerHTML = '<div class="proj-name">' + name + '</div><div class="proj-id">' + id + '</div>';
-  grid.insertBefore(btn, addBtn);
-}
-
-extraProjects.forEach(p => addProjectButton(p.name, p.id));
 </script>
 </body>
 </html>
