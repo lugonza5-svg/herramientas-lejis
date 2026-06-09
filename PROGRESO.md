@@ -1,1 +1,124 @@
-PRUEBA ACTUALIZADOR PROGRESO
+PROGRESO — RIT Inversiones Lejis
+> Claude: antes de continuar cualquier trabajo del RIT, consultar primero este documento de conocimiento del proyecto llamado PROGRESO.md.
+>
+> Al final de cada sesión, Claude debe entregar un bloque titulado "ACTUALIZACIÓN PARA PROGRESO", listo para copiar y pegar en el Actualizador PROGRESO.
+>
+> Este documento conserva el nombre PROGRESO.md, pero su formato real es Google Doc. El script Actualizador PROGRESO lo sobrescribe por ID del Google Doc, sin crear documento nuevo.
+>
+> Si Claude no puede acceder a este documento o no encuentra contexto suficiente, debe advertirlo antes de redactar.
+---
+Estado actual
+Fase: Inicio / Configuración
+Fecha última actualización: 2026-06-06
+Próximo paso: Entrevista de diagnóstico — leer PERFIL_INVERSIONES_LEJIS.md primero, luego usar DIAGNOSTICO-RIT-entrevista.md solo para las 15 preguntas pendientes listadas al final del perfil.
+---
+Qué es este proyecto
+Redacción del Reglamento Interno de Trabajo de Inversiones Lejis S.A.S (NIT: 900231444-2), empresa del sector HORECA con 7 trabajadores domiciliada en Bogotá. El documento debe cumplir con el CST (Arts. 104–125), la Ley 2466 de 2025 y las circulares vigentes del Ministerio de Trabajo. Plazo legal de adopción: octubre de 2026.
+El RIT se construye con enfoque QUÉ / CÓMO:
+QUÉ: lo que la norma obliga (no negociable).
+CÓMO: cómo Inversiones Lejis aplica esa obligación dentro del margen de autonomía que la ley permite, adecuándola a su operación real.
+---
+Marco normativo base
+Norma	Rol en el proyecto	Secciones RIT que afecta
+CST Arts. 104–125	Estructura, contenido obligatorio, publicación, sanciones y procedimiento del RIT	Todas
+Ley 2466 de 2025	Norma rectora vigente	Todas
+Ley 2101 de 2021	Jornada máxima 42 horas semanales desde 2026	2, 3
+Circular 0048 Mintrabajo 22/may/2026	Debido proceso disciplinario	11, 12
+Circular 0049 Mintrabajo 22/may/2026	Terminación vínculo con estabilidad reforzada	9, 12, 14
+Circular 0120 Mintrabajo 27/nov/2025	Despido trabajadores con discapacidad/salud	9, 12, 14
+---
+Decisiones tomadas
+Decisión	Opción elegida	Estado
+Sistema de gestión	Google Doc llamado PROGRESO.md en Drive + Proyecto Claude	Decidido
+Skills jurídicas	juridica-colombia-verificada + auditoria-juridica-documental-co + entrevistador-procesos	Decidido
+Nombre empresa	Inversiones Lejis S.A.S	Decidido
+Norma rectora	Ley 2466 de 2025	Decidido
+Plazo de adopción	Octubre 2026	Decidido
+Circulares incorporadas	0048, 0049 (may/2026) y 0120 (nov/2025) Mintrabajo	Decidido
+Enfoque de redacción	QUÉ obliga la ley / CÓMO lo aplica Lejis con escenarios de elección	Decidido
+Guía de entrevista	DIAGNOSTICO-RIT-entrevista.md — solo preguntas no respondidas por el perfil	Decidido
+Perfil empresa	PERFIL_INVERSIONES_LEJIS.md — base de contexto operativo	Decidido
+Recaudo y cartera	Responsabilidad exclusiva del gerente	Decidido
+Sección 8	No incluir recaudo para cargos distintos al gerente	Decidido
+Humanizer	Aplicar después de redactar y antes de auditoría jurídica	Decidido
+Actualización PROGRESO	Script Apps Script + página HTML actualizador_progreso.html actualizan el Google Doc PROGRESO.md mediante ID permanente	Decidido
+---
+Orden de construcción
+Leer PERFIL_INVERSIONES_LEJIS.md.
+Entrevista diagnóstico — solo las 15 preguntas pendientes del perfil.
+Resumen diagnóstico completo.
+Definir estructura definitiva de secciones del RIT.
+Por cada artículo: QUÉ → margen → 2-3 escenarios del CÓMO → Luis elige → redactar → humanizer → auditoría.
+Revisión integral del documento completo.
+Versión final para adopción y depósito.
+---
+Flujo de construcción de cada artículo
+QUÉ — lo que la norma obliga, con cita exacta.
+MARGEN — qué permite decidir autónomamente al empleador.
+ESCENARIOS — 2-3 opciones del CÓMO ancladas a la operación real de Lejis:
+Descripción práctica.
+Ventaja operativa para Lejis.
+Limitación o riesgo.
+Condición de validez, si aplica.
+Luis elige el escenario.
+Redacción del artículo.
+Humanizer — eliminar redacción artificial, mantener precisión jurídica.
+Auditoría jurídica — SKILL-auditoria-juridica-documental-co.
+---
+Regla de inicio de sesión en Claude
+Al iniciar cualquier nuevo chat dentro del proyecto RIT, Claude debe revisar primero el documento PROGRESO.md agregado al conocimiento del proyecto desde Google Drive, antes de redactar, auditar o continuar cualquier sección.
+No debe continuar con redacción, revisión jurídica, entrevista ni auditoría sin verificar:
+Estado actual del proyecto.
+Próximo paso.
+Decisiones ya tomadas.
+Artículos o secciones ya trabajadas.
+Pendientes abiertos en el Log de avances.
+Si el documento PROGRESO.md no está disponible, tiene fecha de actualización anterior al último avance conocido o no contiene información suficiente, Claude debe advertirlo expresamente antes de continuar.
+---
+Regla de conservación de decisiones
+Claude no debe modificar decisiones ya marcadas como "Decidido" salvo instrucción expresa de Luis.
+Si identifica una inconsistencia jurídica, técnica u operativa, debe advertirla como observación crítica antes de proponer cualquier cambio.
+No debe reabrir decisiones cerradas ni cambiar el enfoque QUÉ / CÓMO sin autorización expresa.
+---
+Decisiones jurídicas por sección
+Sección	Decisión	Detalle
+8 — Obligaciones del trabajador	Recaudo excluido para todos excepto gerente	90% ventas a crédito pero recaudo es responsabilidad 100% del gerente
+---
+Estructura del documento
+#	Sección	Norma crítica	Estado
+1	Condiciones de admisión	CST Art. 108 num. 2	Pendiente
+2	Jornada de trabajo	Ley 2466/2025 + Ley 2101/2021	Pendiente
+3	Horas extras y trabajo nocturno	Ley 2466/2025 Art. 10	Pendiente
+4	Días de descanso	CST Arts. 172–176	Pendiente
+5	Vacaciones	CST Arts. 186–192	Pendiente
+6	Permisos	CST Art. 57 num. 6	Pendiente
+7	Salario	CST Arts. 127–152	Pendiente
+8	Obligaciones del trabajador	CST Art. 58 + Ley 2466/2025	Pendiente
+9	Obligaciones del empleador	CST Art. 57 + Circulares 0049 y 0120	Pendiente
+10	Prohibiciones al trabajador	CST Art. 60	Pendiente
+11	Escala de faltas y sanciones	CST Art. 113 + Circular 0048/2026	Pendiente
+12	Procedimiento disciplinario	Ley 2466/2025 Art. 115 + Circulares 0048 y 0049	Pendiente
+13	Reclamos y quejas	CST Art. 122	Pendiente
+14	Disposiciones finales	Ley 2466/2025 + Circulares 0049 y 0120	Pendiente
+---
+Archivos del proyecto
+Archivo	Descripción	Ubicación
+PROGRESO.md	Google Doc de seguimiento — conserva nombre PROGRESO.md e ID permanente en Drive	Carpeta raíz
+PERFIL_INVERSIONES_LEJIS.md	Perfil operativo de la empresa	03_Referencias
+DIAGNOSTICO-RIT-entrevista.md	Guía de entrevista — 15 preguntas pendientes	03_Referencias
+SKILL-juridica-colombia-verificada.md	Skill redacción jurídica	03_Referencias
+SKILL-auditoria-juridica-documental-co.md	Skill auditoría jurídica	03_Referencias
+SKILL-entrevistador-procesos.md	Skill entrevista diagnóstico	03_Referencias
+SKILL-humanizer.md	Skill humanización de texto	03_Referencias
+2026-05-29_Lejis-PRD_v9.md	PRD proyecto logístico	03_Referencias
+---
+Log de avances
+Fecha	Paso	Avance	Pendiente
+2026-06-02	Inicio	Proyecto configurado, estructura Drive creada	Entrevista diagnóstico
+2026-06-02	Configuración	Marco normativo, skills, circulares incorporadas	Entrevista diagnóstico
+2026-06-02	Configuración	Enfoque QUÉ/CÓMO con escenarios por artículo	Entrevista diagnóstico
+2026-06-02	Configuración	PERFIL_INVERSIONES_LEJIS.md creado	Entrevista diagnóstico
+2026-06-02	Configuración	Decisión sección 8: recaudo exclusivo del gerente	Entrevista diagnóstico
+2026-06-03	Configuración	Humanizer incorporado al flujo de cada artículo	Entrevista diagnóstico
+2026-06-03	Configuración	Script Apps Script + HTML actualizador creados	Entrevista diagnóstico
+2026-06-06	Configuración	PROGRESO migrado a Google Doc con nombre PROGRESO.md e ID permanente en Drive	Entrevista diagnóstico
