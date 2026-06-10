@@ -143,4 +143,5 @@ Confirmar que el bloque se anexó al final del archivo.
 <!-- BITACORA-LIVIANA-INICIO -->
 | ID | Fecha | Título | Avance breve |
 |---|---|---|---|
+| S-0001 | 2026-06-09 20:26 | Prueba técnica flujo doble | Se probó registro en PROGRESO.md y PROGRESO_LOG_SESIONES.md. |
 <!-- BITACORA-LIVIANA-FIN -->
