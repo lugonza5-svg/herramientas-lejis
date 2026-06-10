@@ -19,3 +19,15 @@ Prueba técnica del nuevo flujo doble.
 Verificar ambos archivos en Drive y GitHub.
 
 <!-- RIT-SESION-FIN S-0001 -->
+
+
+<!-- RIT-SESION-INICIO S-0002 -->
+## S-0002 — 2026-06-09 20:33 — Prueba mensaje visible
+
+### Avance breve
+Se corrigió limpieza del formulario sin ocultar mensaje.
+
+### Resumen completo
+Prueba para confirmar que el mensaje de éxito queda visible después de registrar.
+
+<!-- RIT-SESION-FIN S-0002 -->
