@@ -135,3 +135,12 @@ Confirmar que el bloque se anexó al final del archivo.
 ### Artículos trabajados
 - Ninguno.
 <!-- RIT-SESION-FIN -->
+
+---
+
+## Bitácora liviana de sesiones
+
+<!-- BITACORA-LIVIANA-INICIO -->
+| ID | Fecha | Título | Avance breve |
+|---|---|---|---|
+<!-- BITACORA-LIVIANA-FIN -->
