@@ -7,143 +7,218 @@
 </head>
 <body>
 <pre id="progreso">
-PROGRESO — RIT Inversiones Lejis
-> Claude: antes de continuar cualquier trabajo del RIT, consultar primero este documento de conocimiento del proyecto llamado PROGRESO.md.
->
-> Al final de cada sesión, Claude debe entregar un bloque titulado "ACTUALIZACIÓN PARA PROGRESO", listo para copiar y pegar en el Actualizador PROGRESO.
->
-> Este documento conserva el nombre PROGRESO.md, pero su formato real es Google Doc. El script Actualizador PROGRESO lo sobrescribe por ID del Google Doc, sin crear documento nuevo.
->
-> Si Claude no puede acceder a este documento o no encuentra contexto suficiente, debe advertirlo antes de redactar.
----
-Estado actual
-Fase: Inicio / Configuración
-Fecha última actualización: 2026-06-06
-Próximo paso: Entrevista de diagnóstico — leer PERFIL_INVERSIONES_LEJIS.md primero, luego usar DIAGNOSTICO-RIT-entrevista.md solo para las 15 preguntas pendientes listadas al final del perfil.
----
-Qué es este proyecto
-Redacción del Reglamento Interno de Trabajo de Inversiones Lejis S.A.S (NIT: 900231444-2), empresa del sector HORECA con 7 trabajadores domiciliada en Bogotá. El documento debe cumplir con el CST (Arts. 104–125), la Ley 2466 de 2025 y las circulares vigentes del Ministerio de Trabajo. Plazo legal de adopción: octubre de 2026.
-El RIT se construye con enfoque QUÉ / CÓMO:
-QUÉ: lo que la norma obliga (no negociable).
-CÓMO: cómo Inversiones Lejis aplica esa obligación dentro del margen de autonomía que la ley permite, adecuándola a su operación real.
----
-Marco normativo base
-Norma	Rol en el proyecto	Secciones RIT que afecta
-CST Arts. 104–125	Estructura, contenido obligatorio, publicación, sanciones y procedimiento del RIT	Todas
-Ley 2466 de 2025	Norma rectora vigente	Todas
-Ley 2101 de 2021	Jornada máxima 42 horas semanales desde 2026	2, 3
-Circular 0048 Mintrabajo 22/may/2026	Debido proceso disciplinario	11, 12
-Circular 0049 Mintrabajo 22/may/2026	Terminación vínculo con estabilidad reforzada	9, 12, 14
-Circular 0120 Mintrabajo 27/nov/2025	Despido trabajadores con discapacidad/salud	9, 12, 14
----
-Decisiones tomadas
-Decisión	Opción elegida	Estado
-Sistema de gestión	Google Doc llamado PROGRESO.md en Drive + Proyecto Claude	Decidido
-Skills jurídicas	juridica-colombia-verificada + auditoria-juridica-documental-co + entrevistador-procesos	Decidido
-Nombre empresa	Inversiones Lejis S.A.S	Decidido
-Norma rectora	Ley 2466 de 2025	Decidido
-Plazo de adopción	Octubre 2026	Decidido
-Circulares incorporadas	0048, 0049 (may/2026) y 0120 (nov/2025) Mintrabajo	Decidido
-Enfoque de redacción	QUÉ obliga la ley / CÓMO lo aplica Lejis con escenarios de elección	Decidido
-Guía de entrevista	DIAGNOSTICO-RIT-entrevista.md — solo preguntas no respondidas por el perfil	Decidido
-Perfil empresa	PERFIL_INVERSIONES_LEJIS.md — base de contexto operativo	Decidido
-Recaudo y cartera	Responsabilidad exclusiva del gerente	Decidido
-Sección 8	No incluir recaudo para cargos distintos al gerente	Decidido
-Humanizer	Aplicar después de redactar y antes de auditoría jurídica	Decidido
-Actualización PROGRESO	Script Apps Script + página HTML actualizador_progreso.html actualizan el Google Doc PROGRESO.md mediante ID permanente	Decidido
----
-Orden de construcción
-Leer PERFIL_INVERSIONES_LEJIS.md.
-Entrevista diagnóstico — solo las 15 preguntas pendientes del perfil.
-Resumen diagnóstico completo.
-Definir estructura definitiva de secciones del RIT.
-Por cada artículo: QUÉ → margen → 2-3 escenarios del CÓMO → Luis elige → redactar → humanizer → auditoría.
-Revisión integral del documento completo.
-Versión final para adopción y depósito.
----
-Flujo de construcción de cada artículo
-QUÉ — lo que la norma obliga, con cita exacta.
-MARGEN — qué permite decidir autónomamente al empleador.
-ESCENARIOS — 2-3 opciones del CÓMO ancladas a la operación real de Lejis:
-Descripción práctica.
-Ventaja operativa para Lejis.
-Limitación o riesgo.
-Condición de validez, si aplica.
-Luis elige el escenario.
-Redacción del artículo.
-Humanizer — eliminar redacción artificial, mantener precisión jurídica.
-Auditoría jurídica — SKILL-auditoria-juridica-documental-co.
----
-Regla de inicio de sesión en Claude
-Al iniciar cualquier nuevo chat dentro del proyecto RIT, Claude debe revisar primero el documento PROGRESO.md agregado al conocimiento del proyecto desde Google Drive, antes de redactar, auditar o continuar cualquier sección.
-No debe continuar con redacción, revisión jurídica, entrevista ni auditoría sin verificar:
-Estado actual del proyecto.
-Próximo paso.
-Decisiones ya tomadas.
-Artículos o secciones ya trabajadas.
-Pendientes abiertos en el Log de avances.
-Si el documento PROGRESO.md no está disponible, tiene fecha de actualización anterior al último avance conocido o no contiene información suficiente, Claude debe advertirlo expresamente antes de continuar.
----
-Regla de conservación de decisiones
-Claude no debe modificar decisiones ya marcadas como "Decidido" salvo instrucción expresa de Luis.
-Si identifica una inconsistencia jurídica, técnica u operativa, debe advertirla como observación crítica antes de proponer cualquier cambio.
-No debe reabrir decisiones cerradas ni cambiar el enfoque QUÉ / CÓMO sin autorización expresa.
----
-Decisiones jurídicas por sección
-Sección	Decisión	Detalle
-8 — Obligaciones del trabajador	Recaudo excluido para todos excepto gerente	90% ventas a crédito pero recaudo es responsabilidad 100% del gerente
----
-Estructura del documento
-#	Sección	Norma crítica	Estado
-1	Condiciones de admisión	CST Art. 108 num. 2	Pendiente
-2	Jornada de trabajo	Ley 2466/2025 + Ley 2101/2021	Pendiente
-3	Horas extras y trabajo nocturno	Ley 2466/2025 Art. 10	Pendiente
-4	Días de descanso	CST Arts. 172–176	Pendiente
-5	Vacaciones	CST Arts. 186–192	Pendiente
-6	Permisos	CST Art. 57 num. 6	Pendiente
-7	Salario	CST Arts. 127–152	Pendiente
-8	Obligaciones del trabajador	CST Art. 58 + Ley 2466/2025	Pendiente
-9	Obligaciones del empleador	CST Art. 57 + Circulares 0049 y 0120	Pendiente
-10	Prohibiciones al trabajador	CST Art. 60	Pendiente
-11	Escala de faltas y sanciones	CST Art. 113 + Circular 0048/2026	Pendiente
-12	Procedimiento disciplinario	Ley 2466/2025 Art. 115 + Circulares 0048 y 0049	Pendiente
-13	Reclamos y quejas	CST Art. 122	Pendiente
-14	Disposiciones finales	Ley 2466/2025 + Circulares 0049 y 0120	Pendiente
----
-Archivos del proyecto
-Archivo	Descripción	Ubicación
-PROGRESO.md	Google Doc de seguimiento — conserva nombre PROGRESO.md e ID permanente en Drive	Carpeta raíz
-PERFIL_INVERSIONES_LEJIS.md	Perfil operativo de la empresa	03_Referencias
-DIAGNOSTICO-RIT-entrevista.md	Guía de entrevista — 15 preguntas pendientes	03_Referencias
-SKILL-juridica-colombia-verificada.md	Skill redacción jurídica	03_Referencias
-SKILL-auditoria-juridica-documental-co.md	Skill auditoría jurídica	03_Referencias
-SKILL-entrevistador-procesos.md	Skill entrevista diagnóstico	03_Referencias
-SKILL-humanizer.md	Skill humanización de texto	03_Referencias
-2026-05-29_Lejis-PRD_v9.md	PRD proyecto logístico	03_Referencias
----
-Log de avances
-Fecha	Paso	Avance	Pendiente
-2026-06-02	Inicio	Proyecto configurado, estructura Drive creada	Entrevista diagnóstico
-2026-06-02	Configuración	Marco normativo, skills, circulares incorporadas	Entrevista diagnóstico
-2026-06-02	Configuración	Enfoque QUÉ/CÓMO con escenarios por artículo	Entrevista diagnóstico
-2026-06-02	Configuración	PERFIL_INVERSIONES_LEJIS.md creado	Entrevista diagnóstico
-2026-06-02	Configuración	Decisión sección 8: recaudo exclusivo del gerente	Entrevista diagnóstico
-2026-06-03	Configuración	Humanizer incorporado al flujo de cada artículo	Entrevista diagnóstico
-2026-06-03	Configuración	Script Apps Script + HTML actualizador creados	Entrevista diagnóstico
-2026-06-06	Configuración	PROGRESO migrado a Google Doc con nombre PROGRESO.md e ID permanente en Drive	Entrevista diagnóstico
+# PROGRESO — RIT Inversiones Lejis
 
----
-<!-- RIT-SESION-INICIO -->
-## Sesión: 2026-06-09
-### Lo tratado
-- Prueba de acumulación del actualizador PROGRESO.
-### Decisiones tomadas
-- Usar “Registrar sesión” para anexar resúmenes sin borrar la base.
-### Próximo paso
-Confirmar que el bloque se anexó al final del archivo.
-### Artículos trabajados
-- Ninguno.
-<!-- RIT-SESION-FIN -->
+> INSTRUCCION PARA CLAUDE:
+> Al iniciar cualquier sesion del proyecto RIT, lee unicamente este archivo: `PROGRESO.md`.
+> No leas `PROGRESO_LOG_SESIONES.md` salvo que Luis escriba expresamente: `CONSULTAR LOG`.
+> Usa este archivo como tablero operativo liviano.
+> Antes de modificar cualquier archivo, resume que vas a cambiar y espera confirmacion de Luis.
+
+## Ruta de trabajo
+
+- Carpeta raiz autorizada por MCP filesystem: `G:\Mi unidad\RIT_Inversiones_Lejis`
+- Archivo liviano de arranque: `PROGRESO.md`
+- Historico completo: `PROGRESO_LOG_SESIONES.md`
+
+## Estado actual
+
+- Proyecto: Reglamento Interno de Trabajo — RIT Inversiones Lejis S.A.S.
+- Fase: REDACCION COMPLETA — 23 de 23 secciones APROBADAS en disco. Pendientes operativos del martes 17/06. Articulado de productividad construido como sección complementaria.
+- Avance del RIT: 23/23 archivos APROBADOS en 01_Borradores. Articulado de productividad guardado como borrador complementario (sin numero de seccion asignado aun).
+- Ultima actualizacion: 2026-06-14.
+- Proximo paso: martes 17/06 — (1) clase de riesgo ARL → completar supuesto SEC-09 Art. 9.1; (2) fotos sellos fisicos → ajustar SEC-13 literal 13.2.1(c); (3) foto documento Alistamiento y Cargue → ajustar SEC-13 bloque 13.2.6; (4) concepto medicina laboral → ajustar SEC-05 Art. 5.6 Y aplicar al articulado de productividad Art. X+2; (5) definir numero de seccion definitivo para articulado de productividad en el RIT.
+- URGENTE: plazo Ley 2466/2025 vence el 25 de junio de 2026. Quedan 11 dias.
+
+## Secciones aprobadas en 01_Borradores
+
+| Seccion | Archivo | Estado |
+|---|---|---|
+| 01 | SEC-01-identificacion-empresa-v1-APROBADA.md | APROBADA |
+| 02 | SEC-02-admision-documentos-periodo-prueba-v1-APROBADA.md | APROBADA |
+| 03 | SEC-03-trabajadores-accidentales-ocasionales-transitorios-v1-APROBADA.md | APROBADA |
+| 04 | SEC-04-jornada-trabajo-horarios-v1-APROBADA.md | APROBADA |
+| 05 | SEC-05-horas-extra-trabajo-nocturno-v2-APROBADA.md | APROBADA — Art. 5.6 pendiente ajuste martes 17/06 con concepto medicina laboral |
+| 06 | SEC-06-descansos-vacaciones-permisos-v1-APROBADA.md | APROBADA |
+| 07 | SEC-07-salario-lugar-fecha-pago-v2-APROBADA.md | APROBADA — cita Art. 153 corregida a Art. 149 CST |
+| 08 | SEC-08-servicios-medicos-incapacidades-v1-APROBADA.md | APROBADA |
+| 09 | SEC-09-orden-higiene-seguridad-sgsst-v1-APROBADA.md | APROBADA — supuesto clase de riesgo ARL pendiente martes 17/06 |
+| 10 | SEC-10-prevencion-riesgos-primeros-auxilios-v1-APROBADA.md | APROBADA |
+| 11 | SEC-11-orden-jerarquico-representantes-v1-APROBADA.md | APROBADA |
+| 12 | SEC-12-labores-restringidas-prohibidas-v1-APROBADA.md | APROBADA |
+| 13 | SEC-13-obligaciones-especiales-v2-APROBADA.md | APROBADA — sellos y doc. Alistamiento y Cargue pendientes martes 17/06 |
+| 14 | SEC-14-prohibiciones-especiales-v1-APROBADA.md | APROBADA |
+| 15 | SEC-15-escala-faltas-sanciones-v2-APROBADA.md | APROBADA |
+| 16 | SEC-16-procedimiento-disciplinario-v1-APROBADA.md | APROBADA |
+| 17 | SEC-17-estabilidad-laboral-reforzada-v1-APROBADA.md | APROBADA |
+| 18 | SEC-18-reclamos-personal-tramitacion-v1-APROBADA.md | APROBADA |
+| 19 | SEC-19-acoso-laboral-CCL-v1-APROBADA.md | APROBADA — votacion CCL pendiente antes del 25/06 |
+| 19B | SEC-19B-acoso-sexual-v1-APROBADA.md | APROBADA — adenda contratos pendiente al depositar |
+| 20 | SEC-20-desconexion-laboral-canales-digitales-v1-APROBADA.md | APROBADA |
+| 21 | SEC-21-beneficios-extralegales-bienestar-v1-APROBADA.md | APROBADA |
+| 22 | SEC-22-publicacion-vigencia-deposito-v1-APROBADA.md | APROBADA |
+
+## Borradores complementarios (fuera de la estructura de 23 secciones)
+
+| Archivo | Estado | Nota |
+|---|---|---|
+| SEC-PRODUCTIVIDAD-gestion-funciones-capacitacion-v1.md | BORRADOR — pendiente numeracion y ubicacion en RIT | Articulado de productividad, ius variandi y capacitacion. Construido sesion S-0012. Requiere asignacion de numero de seccion definitivo. |
+
+## Secciones pendientes
+
+Ninguna en la estructura base. Los 23 archivos estan APROBADOS en disco.
+
+Pendientes operativos del martes 17/06:
+- SEC-09 Art. 9.1: completar clase de riesgo ARL
+- SEC-13 literal 13.2.1(c): ajustar descripcion sellos con fotografia fisica
+- SEC-13 bloque 13.2.6: ajustar documento Alistamiento y Cargue con fotografia fisica
+- SEC-05 Art. 5.6: ajustar con concepto de medicina laboral
+- SEC-PRODUCTIVIDAD Art. X+2: ajustar con concepto medicina laboral (trabajador con restricciones)
+- Definir numero de seccion definitivo para articulado de productividad
+
+## Contexto minimo del proyecto
+
+- Empresa: Inversiones Lejis S.A.S.
+- NIT: 900231444-2.
+- Sector: HORECA.
+- Ubicacion: Bogota.
+- Tamano: 7 trabajadores (6 subordinados + 1 empleador).
+- Enfoque de redaccion: separar siempre:
+  - QUE exige la norma.
+  - COMO puede aplicarlo Lejis dentro del margen legal.
+  - Escenarios de eleccion cuando exista margen.
+
+## Marco normativo operativo
+
+> ADVERTENCIA:
+> Este marco es operativo para orientar el trabajo, pero antes de citar normas en el articulado se debe verificar vigencia, numero, fecha y fuente oficial.
+
+| Norma / fuente | Uso operativo | Estado |
+|---|---|---|
+| CST Arts. 104-125 | Base estructural del RIT | VERIFICADO — archivo `NORMA-CST-104-125-RIT.md` |
+| Ley 2466/2025 | Norma rectora del proyecto | VERIFICADO — archivo `NORMA-Ley-2466-2025-Reforma-Laboral.md` |
+| Ley 2101/2021 | Jornada laboral / 42 h semanales | VERIFICADO — archivo `NORMA-Ley-2101-2021-Jornada-42h.md` |
+| CST Arts. 57-60 | Obligaciones y prohibiciones especiales | VERIFICADO — archivo `NORMA-CST-57-60-Obligaciones-Prohibiciones.md` |
+| CST Arts. 158-170 | Jornada, turnos, horas extra, recargos | VERIFICADO — archivo `NORMA-CST-158-170-Jornada-Turnos-Extras.md` |
+| CST Arts. 172-188 | Descansos, dominicales, festivos, vacaciones | VERIFICADO — archivo `NORMA-CST-172-188-Descansos-Vacaciones.md` |
+| Circular 0048/2026 | Debido proceso disciplinario | VIGENTE — archivo en 03_Referencias |
+| Circular 0049/2026 | Estabilidad reforzada / ajustes razonables / causa objetiva | VIGENTE — archivo en 03_Referencias |
+| Circular 0120/2025 | Derogada | No citar — archivo sufijado DEROGADA en 03_Referencias |
+| Ley 2191/2022 | Desconexion laboral — obliga politica en RIT | VIGENTE — archivo en 03_Referencias |
+| Ley 1010/2006 + Res. 3461/2025 | Acoso laboral + Comite de Convivencia Laboral | VIGENTE — Res. 3461 con demanda nulidad en curso |
+| Ley 2365/2024 + C190 OIT | Acoso sexual — procedimiento separado del CCL | VIGENTE — archivo en 03_Referencias |
+| Res. 1843/2025 | Evaluaciones medicas ocupacionales | VIGENTE — articular con SG-SST |
+| Decreto 223/2026 | Practicas laborales y contrato de aprendizaje | NO APLICA — archivado como referencia futura |
+
+## Decisiones tomadas
+
+No reabrir salvo orden expresa de Luis o verificacion normativa oficial que obligue a corregir.
+
+- Usar enfoque QUE / COMO con 2-3 escenarios por articulo cuando exista margen de decision.
+- Recaudo y cartera: responsabilidad exclusiva del gerente. La seccion 8 no asigna recaudo a otros cargos.
+- Entrevista diagnostica (15 preguntas): completada en S-0003. No repetir.
+- Resultado de la entrevista guardado en `03_Referencias/DIAGNOSTICO-RIT-respuestas.md`.
+- RIT se construye desde cero: el anterior no tiene efectos juridicos (nunca depositado).
+- Sabados y horas extra se formalizan en el RIT con registro en nomina; se elimina pago informal hacia adelante.
+- Trabajador con estabilidad laboral reforzada (PCL 11,6 %): nunca horas extra. Proteccion especial en terminacion y procedimiento disciplinario. Aplicar procedimiento completo aunque Lejis califique como microempresa.
+- Decreto 223/2026: no aplica a Lejis (sin aprendices, sin planes de vincularlos).
+- Aplicar humanizer despues de redactar y antes de auditoria juridica.
+- El mapa canonico de secciones esta en `03_Referencias/MAPA-Secciones-RIT.md`.
+- Cierre de sesion: Claude detecta frases de cierre, pregunta confirmacion y ejecuta el flujo si Luis confirma.
+- Plazo "octubre 2026" CERRADO: el plazo correcto verificado es 25 de junio de 2026 (Ley 2466/2025). No reabrir.
+- Jornada a redactar: 42 horas semanales. El tramo final de 42 h rige el 15 de julio de 2026.
+- Convencion de nombres borradores: `SEC-[NN]-[slug-tema]-v[N].md` con sufijo `-APROBADA` al aprobar auditoria y ortografia.
+- MAPA verificado contra 19 numerales Art. 108 CST: cobertura completa confirmada el 2026-06-12.
+- Lejis califica como microempresa (7 trabajadores): procedimiento disciplinario simplificado permitido, salvo para trabajador con estabilidad laboral reforzada.
+- SEC-13: numerales 13.2.5 (atencion al cliente) y 13.2.6 (alistamiento y cargue) — orden corregido en v2.
+- SEC-07: cita de deducciones corregida — Art. 149 CST (no Art. 153, que regula intereses de prestamos).
+- SEC-05: tabla de recargos corregida — escalonamiento completo hasta 2027 (80%/90%/100%).
+- Control PII: las NOTAS INTERNAS de cada seccion deben eliminarse antes de consolidar el documento final. Ningun nombre propio de trabajador puede quedar en el articulado depositado.
+- Accion pendiente antes del deposito: votacion formal CCL (SEC-19) y adenda contratos (SEC-19B).
+- Articulado de productividad (S-0012): 4 articulos construidos con escenarios elegidos por Luis. Plazos ajustados estrategicamente. Canal Telegram "Productividad Administrativa" mencionado expresamente. Gerente excluido del registro diario. Cadena disciplinaria en 4 eslabones — ciclo completo en aprox. 55 dias calendario.
+
+## Flujo por articulo
+
+1. Identificar QUE exige la norma (con cita verificada).
+2. Identificar margen de decision del empleador.
+3. Proponer 2-3 escenarios anclados a la operacion real de Lejis (ventaja, riesgo, condicion de validez).
+4. Esperar eleccion de Luis.
+5. Redactar el articulo.
+6. Aplicar humanizer juridico.
+7. Auditar juridicamente.
+8. Aplicar revision ortografica juridica.
+9. Guardar en `01_Borradores` con nombre: `SEC-[NN]-[slug-tema]-v[N]-APROBADA.md`
+
+## Convencion de nombres — 01_Borradores
+
+Formato: `SEC-[NN]-[slug-tema]-v[N]-APROBADA.md`
+
+- NN: numero de seccion en dos digitos (01, 04, 15).
+- slug-tema: minusculas sin tildes, palabras separadas por guion.
+- v[N]: version desde v1; sube al hacer revision sustancial.
+- Sufijo -APROBADA: obligatorio al completar humanizer + auditoria + ortografia.
+
+## Orden de construccion
+
+Diagnostico COMPLETO — Marco normativo COMPLETO — Redaccion COMPLETA (23/23) — Articulado complementario de productividad (S-0012) — Ajustes operativos martes 17/06 — Pase de borrado NOTAS INTERNAS y PII — Consolidacion documento final — Deposito ante Mintrabajo antes del 25/06/2026.
+
+## Archivos clave
+
+- `03_Referencias/DIAGNOSTICO-RIT-respuestas.md` — resultado de la entrevista — leer bajo demanda
+- `03_Referencias/PERFIL_INVERSIONES_LEJIS.md` — leer una vez por sesion de redaccion
+- `03_Referencias/MAPA-Secciones-RIT.md` — leer al iniciar cada seccion de redaccion
+- `03_Referencias/NORMA-CST-104-125-RIT.md` — verificado 2026-06-12
+- `03_Referencias/NORMA-Ley-2466-2025-Reforma-Laboral.md` — verificado 2026-06-12
+- `03_Referencias/NORMA-Ley-2101-2021-Jornada-42h.md` — verificado 2026-06-12
+- `03_Referencias/NORMA-CST-57-60-Obligaciones-Prohibiciones.md` — verificado 2026-06-12
+- `03_Referencias/NORMA-CST-158-170-Jornada-Turnos-Extras.md` — verificado 2026-06-12
+- `03_Referencias/NORMA-CST-172-188-Descansos-Vacaciones.md` — verificado 2026-06-12
+- `03_Referencias/2026-05-29_Lejis-PRD_v9.md` — solo en secciones 2, 8 y 12 — ver alerta en MAPA
+- `01_Borradores/SEC-PRODUCTIVIDAD-gestion-funciones-capacitacion-v1.md` — borrador complementario S-0012
+- Normas en `03_Referencias` (ver tabla marco normativo)
+- Skills: `juridica-colombia-verificada` · `auditoria-juridica-documental-co` · `humanizer-juridico-co` · `ortografia-juridica-co`
+
+## Advertencias criticas
+
+- URGENTE — Plazo RIT: 25 de junio de 2026. Quedan 11 dias.
+- Martes 17/06: 5 pendientes operativos (ARL, sellos, alistamiento, medicina laboral, numeracion articulado productividad).
+- ⚠️ ALERTA MARTES 17/06: concepto medicina laboral actualizado Luis Miguel Moreno — indispensable antes de aplicar Art. X+2 del articulado de productividad (restricciones medicas / Circular 0049/2026).
+- Antes del deposito: implementar y socializar sistema de registro diario del Art. X (articulado productividad) con firma de recibo de cada trabajador — sin este paso la cadena disciplinaria no puede activarse.
+- Antes del deposito: eliminar todas las secciones NOTAS INTERNAS de los 23 archivos.
+- Antes del deposito: votacion CCL documentada con acta (SEC-19).
+- Antes del deposito: adenda a contratos vigentes incorporando politica de acoso sexual (SEC-19B).
+- No citar normas, circulares, fechas ni plazos sin fuente oficial verificada.
+- Verificar si World Office liquida correctamente recargos con Ley 2466/2025 antes de que el RIT entre en vigor.
+- Nocturno desde las 7:00 p.m. — cambio critico Ley 2466/2025.
+- Recargo dominical: 80% hasta jun 2026 / 90% desde jul 2026 / 100% desde jul 2027.
+- Res. 3461/2025: demanda de nulidad admitida. Vigente; sujeta a monitoreo.
+- Res. 1843/2025: plazo de implementacion ya vencido. Verificar cumplimiento con ARL.
+- No leer `PROGRESO_LOG_SESIONES.md` al inicio salvo instruccion expresa: `CONSULTAR LOG`.
+
+## Bitacora liviana de sesiones
+
+| ID | Fecha | Hora | Titulo | Avance breve |
+|---|---|---|---|---|
+| S-0003 | 2026-06-11 | — | Diagnostico RIT — entrevista completa y analisis de jornada | 15 preguntas respondidas, riesgos detectados, decision de jornada pendiente |
+| S-0004 | 2026-06-12 | — | Ampliacion marco normativo — 5 normas incorporadas | 4 archivos normativos creados; Decreto 223/2026 archivado como no aplica |
+| S-0005 | 2026-06-12 | — | Correccion de memoria y archivos del proyecto | Respuestas entrevista guardadas; PROGRESO y LOG corregidos; instrucciones actualizadas |
+| S-0006 | 2026-06-12 | — | Preguntas tecnicas sobre memoria y cierre de sesion | Explicacion de funcionamiento de memoria; bloque de cierre automatico redactado |
+| S-0007 | 2026-06-12 | 18:45 | Diagnostico infraestructura y trazabilidad normativa | 6 archivos normativos creados; MAPA con 19 numerales y frecuencia de lectura definida |
+| S-0008 | 2026-06-13 | 22:30 | Redaccion masiva RIT — 17 secciones aprobadas | 17 de 22 secciones redactadas, humanizadas, auditadas y aprobadas en una sesion |
+| S-0009 | 2026-06-14 | 13:55 | Auditoria y blindaje juridico regimen disciplinario y estabilidad reforzada | SEC-13, 14, 15, 16 y 17 ajustadas: comparendos, 7 pasos Art. 115, 12 principios, evaluacion medica ocupacional como mecanismo de verificacion |
+| S-0010 | 2026-06-14 | 17:30 | Cierre de secciones 9 y 10 — RIT completo en 22 secciones | SEC-9 y SEC-10 aprobadas; SEC-15 v2 con 3 faltas nuevas; SEC-13 con reconvencion en cargue y mercancia trocada |
+| S-0011 | 2026-06-14 | 22:15 | Auditoria exhaustiva, correcciones de citacion y aprobacion nucleo disciplinario | 23/23 secciones APROBADAS en disco; SEC-03 reconstruida; SEC-13 numeracion corregida; SEC-07 y SEC-05 citas corregidas; SEC-14/15/16 aprobadas; carpeta limpia |
+| S-0012 | 2026-06-14 | 23:45 | Articulado de productividad, ius variandi y capacitacion | 4 articulos construidos con escenarios elegidos; borrador guardado en 01_Borradores; alertas agendadas para martes 17/06 |
+| S-0013 | 2026-06-14 | 23:59 | Blindaje patronal SG-SST — canal oficial salud y dotacion ergonomica | Art. 9.9 nuevo en SEC-09; numeral 11 y 13.2.7 en SEC-13; faltas 49 y 50 en SEC-15 |
+
+## Cierre de sesion
+
+Al cerrar una sesion, Claude genera estos campos y escribe la fila en la bitacora con 5 columnas:
+
+`| S-000X | AAAA-MM-DD | HH:MM | [Titulo] | [Avance breve] |`
+
+La hora se inserta automaticamente usando la hora local de Bogota (UTC-5) en el momento del cierre.
+
 
 ---
 
@@ -152,8 +227,7 @@ Confirmar que el bloque se anexó al final del archivo.
 <!-- BITACORA-LIVIANA-INICIO -->
 | ID | Fecha | Título | Avance breve |
 |---|---|---|---|
-| S-0001 | 2026-06-09 20:26 | Prueba técnica flujo doble | Se probó registro en PROGRESO.md y PROGRESO_LOG_SESIONES.md. |
-| S-0002 | 2026-06-09 20:33 | Prueba mensaje visible | Se corrigió limpieza del formulario sin ocultar mensaje. |
+| S-0014 | 2026-06-14 13:58 | hola | hola |
 <!-- BITACORA-LIVIANA-FIN -->
 
 </pre>
